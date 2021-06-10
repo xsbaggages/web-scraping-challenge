@@ -73,7 +73,7 @@ def scrape():
     # Getting image url
     featured_image_url = 'https://spaceimages-mars.com/' + soup.find('img', class_='fancybox-image')['src']
     
-
+    data['featured'] = featured_image_url
 
     # In[8]:
 
@@ -87,7 +87,7 @@ def scrape():
 
     table = pd.read_html(url, flavor = 'html5lib')[0]
     
-
+    data['table'] = table.to_html()
 
     # In[10]:
 
@@ -119,6 +119,8 @@ def scrape():
         
         browser.visit(i['img_url'])
         i['img_url'] = browser.links.find_by_partial_text('Original')['href']
+        i['tmb_url'] = browser.links.find_by_partial_text('Sample')['href']
+
         
 
 
